@@ -113,3 +113,11 @@ return [
 
 ];
 ```
+
+## License
+
+The Nova Documentation tool is free software licensed under the MIT license.
+
+## Credits
+
+* [Doug Niccum](https://github.com/dniccum)
