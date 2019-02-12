@@ -34,6 +34,11 @@ php artisan vendor:publish --provider="Dniccum\NovaDocumentation\ToolServiceProv
 Finally, you will need to register the tool within the `NovaServiceProvider.php`:
 
 ```php
+
+use Dniccum\NovaDocumentation\NovaDocumentation;
+
+...
+
 /**
  * Get the tools that should be listed in the Nova sidebar.
  *
