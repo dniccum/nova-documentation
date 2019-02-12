@@ -1,4 +1,4 @@
-# h1 Heading 8-)
+# Samples
 ## h2 Heading
 ### h3 Heading
 #### h4 Heading
