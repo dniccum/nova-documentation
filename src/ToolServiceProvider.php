@@ -18,13 +18,6 @@ class ToolServiceProvider extends ServiceProvider
      */
     protected $utility;
 
-    public function __construct($app)
-    {
-        parent::__construct($app);
-
-        $this->utility = new MarkdownUtility();
-    }
-
     /**
      * Bootstrap any application services.
      *
@@ -33,6 +26,8 @@ class ToolServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->utility = new MarkdownUtility();
+
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'nova-documentation');
 
         $this->app->booted(function () {
