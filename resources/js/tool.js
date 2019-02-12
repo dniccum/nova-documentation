@@ -20,7 +20,7 @@ Nova.config.pages.map((page) => {
     };
 
     if (page.home) {
-        route.name = 'home';
+        route.name = 'documentation';
         route.path = '/documentation';
 
         routes.push(route);
