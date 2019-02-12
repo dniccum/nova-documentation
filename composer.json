@@ -1,9 +1,20 @@
 {
     "name": "dniccum/nova-documentation",
-    "description": "A Laravel Nova tool.",
+    "description": "A Laravel Nova tool that allows you to add markdown-based documentation to your administrator's dashboard.",
+    "homepage": "https://github.com/dniccum/nova-documentation",
     "keywords": [
         "laravel",
-        "nova"
+        "nova",
+        "markdown",
+        "documentation"
+    ],
+    "authors": [
+        {
+            "name": "Doug Niccum",
+            "email": "dniccumdesign@gmail.com",
+            "homepage": "http://dniccumdesign.com",
+            "role": "Developer"
+        }
     ],
     "license": "MIT",
     "require": {
