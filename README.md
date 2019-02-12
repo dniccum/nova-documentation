@@ -1,6 +1,12 @@
 # Documentation tool for Laravel Nova
 
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/dniccum/nova-documentation.svg?style=flat-square&color=#0E7FC0)](https://packagist.org/packages/dniccum/nova-documentation)
+[![License](https://img.shields.io/packagist/l/dniccum/nova-documentation.svg?style=flat-square)](https://packagist.org/packages/dniccum/nova-documentation)
+[![Total Downloads](https://img.shields.io/packagist/dt/dniccum/nova-documentation.svg?style=flat-square)](https://packagist.org/packages/dniccum/nova-documentation)
+
 This is a tool for Laravel's Nova administrator panel that allows you to create markdown-based documentation for your application; without having to leave the Nova environment.
+
+[![Screenshot](https://raw.githubusercontent.com/dniccum/nova-documentation/master/screenshots/screenshot-1.png)](https://raw.githubusercontent.com/dniccum/nova-documentation/master/screenshots/screenshot-1.png)
 
 ## Features
 
