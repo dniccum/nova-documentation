@@ -208,7 +208,7 @@ class MarkdownUtility
     private function replaceLinks(string $htmlContent, array $otherOptions): string
     {
         $regex = "/<a.+href=['|\"](?!http|https)([^\"\']*)['|\"].*>(.+)<\/a>/i";
-        $output = preg_replace($regex,'<a href="/nova/documentation/\1">\2</a>',$htmlContent);
+        $output = preg_replace($regex,'<a href="'.config('nova.path').'/documentation/\1">\2</a>',$htmlContent);
         $output = preg_replace("/(\.md|.text|.mdown|.mkdn|.mkd|.mdwn|mdtxt|.Rmd|.mdtext)/i",'"',$output);
 
         return $output;
