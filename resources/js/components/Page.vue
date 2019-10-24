@@ -2,8 +2,8 @@
     <div>
         <heading class="mb-6">{{ title }}</heading>
 
-        <div class="flex flex-row">
-            <card class="w-4/5 bg-white p-6 mr-2" style="min-height: 300px">
+        <div class="flex doc-flex-col md:doc-flex-row">
+            <card class="doc-order-3 md:doc-order-first doc-w-full md:doc-w-3/5 lg:doc-w-2/3 xl:doc-w-8/12 bg-white p-6 md:doc-mr-3" style="min-height: 300px">
                 <div class="documentation-content" v-html="content"></div>
             </card>
             <sidebar :content="sidebar"></sidebar>
@@ -39,10 +39,7 @@
             }, 500)
         },
         methods: {
-            // content() {
-            //     // return Vue.compile(this.content);
-            //     return this.content
-            // }
+            //
         }
     }
 </script>
