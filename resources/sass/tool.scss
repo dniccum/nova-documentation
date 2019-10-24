@@ -1,4 +1,26 @@
 // Nova Tool CSS
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@responsive {
+  .doc-w-2\/5 {
+    width: 40%;
+  }
+  .doc-w-3\/5 {
+    width: 60%;
+  }
+  .doc-w-4\/5 {
+    width: 80%;
+  }
+  .doc-mr-2 {
+    margin-right: 0.5rem;
+  }
+  .doc-mr-3 {
+    margin-right: 0.75rem;
+  }
+}
+
 .documentation-content {
 
   p,
