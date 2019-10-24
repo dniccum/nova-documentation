@@ -9,3 +9,4 @@ phpunit.xml
 .DS_Store
 Thumbs.db
 yarn.lock
+/dist/js/tool.js.map

@@ -1,3 +1,5 @@
+import Page from './components/Page';
+
 const routes = [{
     path: '/documentation/home',
     redirect: '/documentation'
@@ -8,7 +10,7 @@ Nova.config.pages.map((page) => {
     let route = {
         name: `documentation/${page.pageRoute}`,
         path: `/documentation/${page.pageRoute}`,
-        component: require('./components/Page'),
+        component: Page,
         props: {
             file: page.file,
             title: page.title,
