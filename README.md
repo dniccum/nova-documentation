@@ -16,6 +16,7 @@ This is a tool for Laravel's Nova administrator panel that allows you to create 
     * Allows for nested directories
 * Syntax highlighting for code blocks (via [highlight.js](https://highlightjs.org/))
 * Replaces local links within the body content to work within the Nova environment.
+* Supports [Laravel Nova Responsive Theme](https://novapackages.com/packages/gregoriohc/laravel-nova-theme-responsive)
 
 ## Installation
 
