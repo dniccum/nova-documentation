@@ -57,6 +57,39 @@
     margin-left: 30px;
     padding-left: 15px;
     border-left: 3px solid #ccc;
+  }  
+  table {
+    border-collapse: collapse;
+    border-radius: .5rem;
+    border-style: hidden;
+    box-shadow: 0 0 0 1px var(--60);
+
+    th {
+      text-align: left;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      font-size: .75rem;
+      color: var(--80);
+      background: var(--30);
+
+      &:first-child {
+        border-top-left-radius: .5rem;
+      }
+
+      &:last-child {
+        border-top-right-radius: .5rem;
+      }
+    }
+
+    td {
+      color: var(--90);
+      font-size: .875rem;
+    }
+
+    th, td {
+      border: 1px solid var(--50);
+      padding: .75rem;
+    }
   }
 }
 /* purgecss end ignore */
