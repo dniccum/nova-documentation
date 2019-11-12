@@ -143,3 +143,4 @@ The Nova Documentation tool is free software licensed under the MIT license.
 
 * [Doug Niccum](https://github.com/dniccum)
 * [Calvin Schemanski](https://github.com/calvinps)
+* [Adriaan Zonnenberg](https://github.com/adriaanzon)
