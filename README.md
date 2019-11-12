@@ -63,13 +63,28 @@ public function tools()
 
 ### Linking
 
-If you would like to link to other markdown files within your body content, outside of the sidebar, be sure to use **relative links**. For example if you are linking from the home page to a sub-directory based file called authentication, you would link to it like so:
+If you would like to link to other markdown files within your body content, outside of the sidebar, be sure to use **relative links** that **DO NOT** begin with a forward slash, like so `/relative`. For example if you are linking from the home page to a sub-directory based file called authentication, you would link to it like so:
 
 ```md
 [authentication](authentication/base.md)
 ```
 
 The tool will dynamically replace this link.
+
+#### Relative links
+
+If you would like to include a relative link to another location within your application or Nova itself, include a link that is prefixed with a forward slash (`/`), like so:
+
+```cmd
+[terms and services](/terms-and-services)
+```
+
+#### Other types
+
+Other types of links that are supported:
+
+* Mailto (`mailto:`) links
+* External http and https links
 
 ## Configuration
 
