@@ -1,3 +1,9 @@
+---
+title: "Welcome to your documentation"
+path: "welcome"
+order: 0
+---
+
 # Welcome to your documentation
 
 Within this area, you can:
