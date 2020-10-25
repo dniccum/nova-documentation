@@ -4,15 +4,23 @@ namespace Dniccum\NovaDocumentation\Library;
 use cebe\markdown\Markdown;
 use cebe\markdown\GithubMarkdown;
 use cebe\markdown\MarkdownExtra;
+use Dniccum\NovaDocumentation\Library\Contracts\DocumentationPage;
+use Dniccum\NovaDocumentation\Library\Contracts\PageContent;
+use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 class MarkdownUtility
 {
 
     /**
      * The Markdown parsing package
-     * @var Markdown|GithubMarkdown|MarkdownExtra $parser
+     * @var Markdown|GithubMarkdown|MarkdownExtra $markdownParser
      */
-    public $parser;
+    public $markdownParser;
+
+    /**
+     * @var YamlFrontMatter $yamlParser
+     */
+    public $yamlParser;
 
     /**
      * The home page
@@ -29,16 +37,18 @@ class MarkdownUtility
 
         switch ($flavor) {
             case 'standard':
-                $this->parser = new Markdown();
+                $this->markdownParser = new Markdown();
                 break;
             case 'extra':
-                $this->parser = new MarkdownExtra();
+                $this->markdownParser = new MarkdownExtra();
                 break;
             default:
-                $this->parser = new GithubMarkdown();
+                $this->markdownParser = new GithubMarkdown();
         }
 
-        $this->parser->html5 = true;
+        $this->markdownParser->html5 = true;
+
+        $this->yamlParser = YamlFrontMatter::class;
 
         if (\File::exists(resource_path(config('novadocumentation.home')))) {
             $this->home = resource_path(config('novadocumentation.home'));
@@ -48,18 +58,23 @@ class MarkdownUtility
     }
 
     /**
-     * Parse the file into the selected markdown flavor
-     * @param string $filePath
-     * @return string
+     * Parse content into the selected markdown flavor
+     * @param string $content
+     * @return PageContent
      */
-    public function parse(string $filePath)
+    public function parse(string $content)
     {
-        return $this->parser->parse($filePath);
+        if (config('novadocumentation.parser') === 'yaml') {
+            $content = $this->yamlParser::parse($content);
+            return new PageContent($content->body(), $content->matter());
+        } else {
+            return new PageContent($this->markdownParser->parse($content));
+        }
     }
 
     /**
      * Builds all of the Vue routes depending on the pages that are available.
-     * @return array
+     * @return DocumentationPage[]
      * @throws \Exception
      */
     public function buildPageRoutes()
@@ -94,26 +109,20 @@ class MarkdownUtility
 
                 $content = $this->parse($fileToParse);
 
-                $options[] = [
-                    'title' => config('novadocumentation.title'),
-                    'pageRoute' => $pathsToAdd[$i],
-                    'file' => $target,
-                    'home' => is_int(strpos($files[$i], config('novadocumentation.home'))),
-//                    'content' => $this->replaceLinks($content, $pathsToAdd[$i]),
-                    'content' => $content,
-                    'pageTitle' => $this->getPageTitle($target)
-                ];
+                array_push($options, new DocumentationPage(
+                    $target,
+                    $pathsToAdd[$i],
+                    $content,
+                    is_int(strpos($files[$i], config('novadocumentation.home')))
+                ));
             }
-
-            for($i = 0; $i < count($options); $i++) {
-                $options[$i]['content'] = $this->replaceLinks($options[$i]['content'], $options);
-            }
-
         } catch (\Exception $e) {
             abort(500, $e);
         }
 
-        return $options;
+        return collect($options)->sortBy('order')
+            ->values()
+            ->toArray();
     }
 
     /**
@@ -179,38 +188,5 @@ class MarkdownUtility
         if (!empty($fileName)) {
             return $filePath.$fileName;
         }
-    }
-
-    /**
-     * Returns the title of the page
-     * @param string $filePath
-     * @return string
-     */
-    private function getPageTitle(string $filePath): string
-    {
-        $lines = file($filePath);
-        $title = '';
-
-        foreach ($lines as $line) {
-            if (strpos($line, '# ') === 0) {
-                $title = substr($line, 2);
-            }
-            break;
-        }
-
-        if (strlen($title) === 0) {
-            $title = !empty($lines[0]) ? $lines[0] : 'Page Title';
-        }
-
-        return $title;
-    }
-
-    private function replaceLinks(string $htmlContent, array $otherOptions): string
-    {
-        $regex = "/<a.+href=['|\"](?!http|https|mailto|\/)([^\"\']*)['|\"].*>(.+)<\/a>/i";
-        $output = preg_replace($regex,'<a href="'.config('nova.path').'/documentation/\1">\2</a>',$htmlContent);
-        $output = preg_replace("/(\.md|\.text|\.mdown|\.mkdn|\.mkd|\.mdwn|.\mdtxt|\.Rmd|\.mdtext)/i", '"', $output);
-
-        return $output;
     }
 }
