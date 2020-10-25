@@ -16,6 +16,21 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Parser
+    |--------------------------------------------------------------------------
+    |
+    | Set the parser that you would like to use to parse your documentation.
+    | It is recommended to use the "yaml" parser as it allows for further
+    | configuration, but may not be as user friendly to all devs/users.
+    |
+    | Available parsers: yaml, markdown
+    |
+    */
+
+    'parser' => env('NOVA_DOCUMENTATION_PARSER', 'yaml'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Markdown Flavor
     |--------------------------------------------------------------------------
     |

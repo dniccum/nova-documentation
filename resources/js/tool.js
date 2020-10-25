@@ -1,15 +1,12 @@
 import Page from './components/Page';
 
-const routes = [{
-    path: '/documentation/home',
-    redirect: '/documentation'
-}];
+const routes = [];
 let sidebar = [];
 
 Nova.config.pages.map((page) => {
     let route = {
-        name: `documentation/${page.pageRoute}`,
-        path: `/documentation/${page.pageRoute}`,
+        name: `documentation/${page.route}`,
+        path: `/documentation/${page.route}`,
         component: Page,
         props: {
             file: page.file,
@@ -21,11 +18,15 @@ Nova.config.pages.map((page) => {
         }
     };
 
-    if (page.home) {
+    if (page.isHome) {
         route.name = 'documentation';
         route.path = '/documentation';
 
         routes.push(route);
+        routes.push({
+            path: `/documentation/${page.route}`,
+            redirect: '/documentation'
+        })
     } else {
         routes.push(route);
     }

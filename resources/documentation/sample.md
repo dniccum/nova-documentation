@@ -1,3 +1,9 @@
+---
+title: "Some documentation examples"
+path: samples
+order: 1
+---
+
 # Samples
 ## h2 Heading
 ### h3 Heading
