@@ -1,4 +1,4 @@
-# Documentation tool for Laravel Nova
+![Documentation tool for Laravel Nova](https://github.com/dniccum/nova-documentation/blob/master/screenshots/nova-documentation-social-image.png?raw=true)
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/dniccum/nova-documentation.svg?style=flat-square&color=#0E7FC0)](https://packagist.org/packages/dniccum/nova-documentation)
 [![License](https://img.shields.io/packagist/l/dniccum/nova-documentation.svg?style=flat-square)](https://packagist.org/packages/dniccum/nova-documentation)
