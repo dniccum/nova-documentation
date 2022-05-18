@@ -31,6 +31,11 @@
             pageTitle: String,
             sidebar: Array
         },
+        metaInfo() {
+            return {
+                title: this.pageTitle,
+            }
+        },
         mounted() {
             setTimeout(() => {
                 document.querySelectorAll('div.documentation-content pre code').forEach((block) => {
