@@ -159,13 +159,12 @@ return [
     | Title
     |--------------------------------------------------------------------------
     |
-    | The name/title of this tool that will appear on the home page and within
-    | the navigation.
+    | The name/title of this tool that will appear as a page default if no title is provided.
     |
     */
 
     'title' => 'Documentation',
-    
+
     /*
     |--------------------------------------------------------------------------
     | Parser
@@ -188,6 +187,8 @@ return [
     |
     | The flavor/style of markdown that will be used. The GitHub flavor is the
     | default as it supports code blocks and other "common" uses.
+    |
+    | Available flavors: github, atom, gradient, monokai
     |
     */
 
