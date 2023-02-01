@@ -108,13 +108,12 @@ class MarkdownUtility
                 $fileToParse = \File::get($target);
 
                 $content = $this->parse($fileToParse);
-
-                array_push($options, new DocumentationPage(
+                $options[] = new DocumentationPage(
                     $target,
                     $pathsToAdd[$i],
                     $content,
                     is_int(strpos($files[$i], config('novadocumentation.home')))
-                ));
+                );
             }
         } catch (\Exception $e) {
             abort(500, $e);

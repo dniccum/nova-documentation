@@ -7,19 +7,19 @@ namespace Dniccum\NovaDocumentation\Library\Contracts;
 class DocumentationPage
 {
     /**
-     * @var
+     * @var string|null
      */
-    public $title;
+    public ?string $title;
 
     /**
      * @var string
      */
-    public $route;
+    public string $route;
 
     /**
-     * @var
+     * @var mixed
      */
-    public $file;
+    public mixed $file;
 
     /**
      * @var bool
@@ -41,6 +41,12 @@ class DocumentationPage
      */
     public $order;
 
+    /**
+     * What is used to construct routes
+     * @var string
+     */
+    protected string $prefix = 'documentation';
+
     public function __construct($file, string $route, PageContent $content, bool $isHome = false)
     {
         $this->file = $file;
@@ -51,9 +57,10 @@ class DocumentationPage
         if ($content->path) {
             $this->route = $content->path;
         } else {
-            $this->route = $route;
+            $this->route = "/documentation/$route";
         }
         if ($content->title) {
+            $this->title = $content->title;
             $this->pageTitle = $content->title;
         } else {
             $this->pageTitle = $this->getPageTitle($file);
@@ -70,7 +77,7 @@ class DocumentationPage
     private function replaceLinks(string $htmlContent): string
     {
         $regex = "/<a.+href=['|\"](?!http|https|mailto|\/)([^\"\']*)['|\"].*>(.+)<\/a>/i";
-        $output = preg_replace($regex,'<a href="'.config('nova.path').'/documentation/\1">\2</a>',$htmlContent);
+        $output = preg_replace($regex,'<a href="'.config('nova.path').'/'.$this->prefix.'/\1">\2</a>',$htmlContent);
         $output = preg_replace("/(\.md|\.text|\.mdown|\.mkdn|\.mkd|\.mdwn|\.mdtxt|\.Rmd|\.mdtext)/i", '"', $output);
 
         return $output;

@@ -2,21 +2,35 @@
 
 namespace Dniccum\NovaDocumentation;
 
+use Dniccum\NovaDocumentation\Library\Contracts\DocumentationPage;
 use Dniccum\NovaDocumentation\Library\MarkdownUtility;
+use Dniccum\NovaDocumentation\Library\RouteUtility;
 use Laravel\Nova\Nova;
 use Laravel\Nova\Events\ServingNova;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Dniccum\NovaDocumentation\Http\Middleware\Authorize;
 
 class ToolServiceProvider extends ServiceProvider
 {
-    private $config = 'novadocumentation';
+    private string $config = 'novadocumentation';
+
+    private string $namespace = 'nova-documentation';
+
+    /**
+     * What is used to construct routes
+     * @var string
+     */
+    public string $prefix = 'documentation';
 
     /**
      * @var MarkdownUtility $utility
      */
-    protected $utility;
+    protected MarkdownUtility $utility;
+
+    /**
+     * @var DocumentationPage[] $pageRoutes
+     */
+    protected array $pageRoutes = [];
 
     /**
      * Bootstrap any application services.
@@ -27,18 +41,19 @@ class ToolServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->utility = new MarkdownUtility();
+        $this->pageRoutes = $this->utility->buildPageRoutes();
 
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'nova-documentation');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', $this->namespace);
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', $this->namespace);
 
         $this->app->booted(function () {
             $this->routes();
         });
 
-        $options = $this->utility->buildPageRoutes();
-
-        Nova::serving(function (ServingNova $event) use ($options) {
+        Nova::serving(function (ServingNova $event) {
             Nova::provideToScript([
-                'pages' => $options,
+                'pages' => $this->pageRoutes,
+                'highlightFlavor' => config('novadocumentation.flavor')
             ]);
         });
 
@@ -52,6 +67,10 @@ class ToolServiceProvider extends ServiceProvider
             __DIR__.'/../resources/documentation/home.md' => resource_path('documentation/home.md'),
             __DIR__.'/../resources/documentation/sample.md' => resource_path('documentation/sample.md'),
         ]);
+
+        $this->publishes([
+            __DIR__.'/../resources/lang' => resource_path('lang/vendor/'.$this->namespace),
+        ], 'lang');
     }
 
     /**
@@ -65,9 +84,22 @@ class ToolServiceProvider extends ServiceProvider
             return;
         }
 
-        Route::middleware(['nova', Authorize::class])
-                ->prefix('nova-vendor/nova-documentation')
-                ->group(__DIR__.'/../routes/api.php');
+        Nova::router(['nova', Authorize::class], $this->prefix)
+            ->group(function() {
+                /**
+                 * @var DocumentationPage[] $filteredRoutes
+                 */
+                $filteredRoutes = collect($this->pageRoutes)
+                    ->filter(fn(DocumentationPage $item) => !$item->isHome)
+                    ->toArray();
+                foreach ($filteredRoutes as $filteredRoute) {
+                    $this->app['router']->get("/$filteredRoute->route", function() use ($filteredRoute) {
+                        return RouteUtility::buildDocumentRoute($filteredRoute->file, $this->pageRoutes);
+                    });
+                }
+
+                require(__DIR__.'/../routes/inertia.php');
+            });
     }
 
     /**
