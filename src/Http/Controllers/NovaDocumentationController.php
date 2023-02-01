@@ -1,43 +1,44 @@
 <?php
+
 namespace Dniccum\NovaDocumentation\Http\Controllers;
 
 use Dniccum\NovaDocumentation\Library\MarkdownUtility;
+use Dniccum\NovaDocumentation\Library\RouteUtility;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
 class NovaDocumentationController
 {
     /**
-     * @var MarkdownUtility $parser
+     * @var MarkdownUtility $markdownUtility
      */
-    public $utility;
+    public MarkdownUtility $markdownUtility;
 
     /**
      * NovaDocumentationController constructor.
-     * @param MarkdownUtility $utility
+     * @param MarkdownUtility $markdownUtility
      */
-    public function __construct(MarkdownUtility $utility)
+    public function __construct(MarkdownUtility $markdownUtility)
     {
-        $this->utility = $utility;
+        $this->markdownUtility = $markdownUtility;
     }
 
     /**
-     * Returns the initial view
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Exception
+     * @param NovaRequest $request
+     * @return \Inertia\Response|\Inertia\ResponseFactory
      */
-    public function index()
+    public function home(NovaRequest $request)
     {
         try {
-            $homeFile = \File::get($this->utility->home);
-            $homeContent = $this->utility->parse($homeFile);
+            return RouteUtility::buildDocumentRoute(
+                $this->markdownUtility->home,
+                $this->markdownUtility->buildPageRoutes()
+            );
         } catch (\Exception $exception) {
-            return response()
-                ->json($exception, 500);
+            abort(
+                $exception->getCode() >= 400 ? $exception->getCode() : 500,
+                $exception->getMessage()
+            );
         }
-
-        return response()
-            ->json([
-                'home' => $homeContent,
-                'title' => config('novadocumentation.title')
-            ]);
     }
+
 }

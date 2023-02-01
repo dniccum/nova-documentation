@@ -1,6 +1,6 @@
 ---
 title: "Some documentation examples"
-path: samples
+path: sample
 order: 1
 ---
 
