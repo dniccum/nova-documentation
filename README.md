@@ -8,6 +8,10 @@ This is a tool for Laravel's Nova administrator panel that allows you to create 
 
 [![Screenshot](https://raw.githubusercontent.com/dniccum/nova-documentation/master/screenshots/screenshot-1.png)](https://raw.githubusercontent.com/dniccum/nova-documentation/master/screenshots/screenshot-1.png)
 
+## Compatibility Note
+
+Please note, this plugin now **only supports Laravel Nova v4**. If you are using Laravel Nova <= v3, please use version `^3.0`,
+
 ## Features
 
 * Parses each markdown document and renders them in the Nova dashboard
@@ -17,7 +21,7 @@ This is a tool for Laravel's Nova administrator panel that allows you to create 
 * Supports YAML parsing to further customize page titles 
 * Syntax highlighting for code blocks (via [highlight.js](https://highlightjs.org/))
 * Replaces local links within the body content to work within the Nova environment.
-* Supports [Laravel Nova Responsive Theme](https://novapackages.com/packages/gregoriohc/laravel-nova-theme-responsive)
+* Supports both browser light and dark themes.
 
 ## Installation
 
@@ -55,13 +59,9 @@ public function tools()
 }
 ```
 
-## Upgrading from version 1
+## Upgrading from version 3
 
-If you are upgrading from version 1, you will need to do the following things:
-
-* [Add YAML configuration](#add-yaml-configuration)
-* [Set environment variable](#set-environment-variable)
-* [Remove dashed horizontal rules](#remove-dashed-horizontal-rules)
+If you are upgrading from version 3, **no further modification is required**. You do however can access additional syntax highlighting if you so choose. 
 
 ### Add YAML configuration
 
