@@ -37,6 +37,8 @@ return [
     | The flavor/style of markdown that will be used. The GitHub flavor is the
     | default as it supports code blocks and other "common" uses.
     |
+    | Available flavors: github, atom, gradient, monokai
+    |
     */
 
     'flavor' => 'github',
