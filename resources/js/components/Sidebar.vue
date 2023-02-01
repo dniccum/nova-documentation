@@ -3,7 +3,9 @@
         <h3 class="mb-2 text-2xl font-bold">Contents</h3>
         <ul class="doc-list-disc doc-ml-6">
             <li class="mb-2" v-for="item of content">
-                <Link :href="item.route" class="doc-cursor-pointer doc-flex doc-items-center doc-font-normal dark:doc-text-gray-100 dark:hover:doc-text-primary-300 doc-text-base no-underline doc-transition doc-duration-150">
+                <Link :href="item.route"
+                      :class="textClass(item)"
+                      class="doc-cursor-pointer doc-flex doc-items-center doc-font-normal doc-text-base no-underline doc-transition doc-duration-150">
                     {{ item.title }}
                 </Link>
             </li>
@@ -20,6 +22,15 @@
         },
         components: {
             Link,
+        },
+        methods: {
+            textClass(item) {
+                if (this.$page.url.endsWith(item.route) || item.isHome && this.$page.url.endsWith('documentation')) {
+                    return 'doc-text-primary-500 hover:doc-text-primary-700';
+                } else {
+                    return 'doc-text-gray-300 dark:doc-text-gray-100 hover:doc-text-primary-200';
+                }
+            }
         }
     }
 </script>

@@ -49,12 +49,16 @@ module.exports = {
                         'p, ul, ol, h1, h2, h3': {
                             marginBottom: theme('spacing.3'),
                         },
+                        li: {
+                            marginTop: '0.2em',
+                            marginBottom: '0.2em',
+                        },
                         a: {
                             color: 'rgb(var(--colors-primary-500))',
                             transition: 'all .125s ease-in-out',
 
                             '&:hover': {
-                                color: 'rgb(var(--colors-primary-700))'
+                                color: 'rgb(var(--colors-primary-300))'
                             }
                         },
                         blockquote: {
