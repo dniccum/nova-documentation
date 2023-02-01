@@ -7,8 +7,7 @@ return [
     | Title
     |--------------------------------------------------------------------------
     |
-    | The name/title of this tool that will appear on the home page and within
-    | the navigation.
+    | The name/title of this tool that will appear as a page default if no title is provided.
     |
     */
 
