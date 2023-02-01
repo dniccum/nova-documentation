@@ -52,6 +52,7 @@ class ToolServiceProvider extends ServiceProvider
 
         Nova::serving(function (ServingNova $event) {
             Nova::provideToScript([
+                'urlPrefix' => $this->prefix,
                 'pages' => $this->pageRoutes,
                 'highlightFlavor' => config('novadocumentation.flavor')
             ]);
