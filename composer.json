@@ -12,16 +12,19 @@
         {
             "name": "Doug Niccum",
             "email": "dniccumdesign@gmail.com",
-            "homepage": "http://dniccumdesign.com",
+            "homepage": "https://dniccumdesign.com",
             "role": "Developer"
         }
     ],
     "license": "MIT",
     "require": {
-        "php": ">=7.1.0",
+        "php": ">=8.0",
         "cebe/markdown": "^1.2",
         "illuminate/support": "^6.0|^7.0|^8.0|^9.0",
         "spatie/yaml-front-matter": "^2.0"
+    },
+    "require-dev": {
+        "laravel/nova": "^4.0"
     },
     "autoload": {
         "psr-4": {
@@ -39,5 +42,11 @@
         "sort-packages": true
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://nova.laravel.com"
+        }
+    ]
 }
