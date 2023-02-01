@@ -59,9 +59,13 @@ public function tools()
 }
 ```
 
-## Upgrading from version 3
+## Upgrading from version 2
 
-If you are upgrading from version 3, **no further modification is required**. You do however can access additional syntax highlighting if you so choose. 
+If you are upgrading from version 2 to version 3 (Laravel 4 support), make sure your `composer.json` has the following version/reference to included the updated version:
+
+```
+"dniccum/nova-documentation": "^3.0"
+```
 
 ### Add YAML configuration
 
