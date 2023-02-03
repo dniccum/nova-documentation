@@ -63,7 +63,7 @@ public function tools()
 
 ## Upgrading from version 2
 
-If you are upgrading from version 2 to version 3 (Laravel 4 support), make sure your `composer.json` has the following version/reference to included the updated version:
+If you are upgrading from version 2 to version 3 (Laravel Nova 4 support), make sure your `composer.json` has the following version/reference to included the updated version:
 
 ```
 "dniccum/nova-documentation": "^3.0"
