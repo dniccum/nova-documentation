@@ -4,7 +4,7 @@ namespace Dniccum\NovaDocumentation;
 
 use Dniccum\NovaDocumentation\Library\Contracts\DocumentationPage;
 use Dniccum\NovaDocumentation\Library\MarkdownUtility;
-use Dniccum\NovaDocumentation\Library\RouteUtility;
+use Illuminate\Support\Facades\Route;
 use Laravel\Nova\Nova;
 use Laravel\Nova\Events\ServingNova;
 use Illuminate\Support\ServiceProvider;
@@ -85,22 +85,9 @@ class ToolServiceProvider extends ServiceProvider
             return;
         }
 
-        Nova::router(['nova', Authorize::class], $this->prefix)
-            ->group(function() {
-                /**
-                 * @var DocumentationPage[] $filteredRoutes
-                 */
-                $filteredRoutes = collect($this->pageRoutes)
-                    ->filter(fn(DocumentationPage $item) => !$item->isHome)
-                    ->toArray();
-                foreach ($filteredRoutes as $filteredRoute) {
-                    $this->app['router']->get("/$filteredRoute->route", function() use ($filteredRoute) {
-                        return RouteUtility::buildDocumentRoute($filteredRoute->file, $this->pageRoutes);
-                    });
-                }
-
-                require(__DIR__.'/../routes/inertia.php');
-            });
+        Route::middleware(['nova', Authorize::class])
+            ->prefix('nova-vendor/nova-documentation')
+            ->group(__DIR__.'/../routes/inertia.php');
     }
 
     /**
