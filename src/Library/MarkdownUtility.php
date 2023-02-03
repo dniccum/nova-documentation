@@ -4,6 +4,7 @@ namespace Dniccum\NovaDocumentation\Library;
 use cebe\markdown\Markdown;
 use cebe\markdown\GithubMarkdown;
 use cebe\markdown\MarkdownExtra;
+use Dniccum\NovaDocumentation\Exceptions\DocumentationParsingException;
 use Dniccum\NovaDocumentation\Library\Contracts\DocumentationPage;
 use Dniccum\NovaDocumentation\Library\Contracts\PageContent;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
@@ -115,7 +116,7 @@ class MarkdownUtility
                     is_int(strpos($files[$i], config('novadocumentation.home')))
                 );
             }
-        } catch (\Exception $e) {
+        } catch (DocumentationParsingException $e) {
             abort(500, $e);
         }
 
