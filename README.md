@@ -8,7 +8,25 @@ This is a tool for Laravel's Nova administrator panel that allows you to create 
 
 [![Screenshot](https://raw.githubusercontent.com/dniccum/nova-documentation/master/screenshots/screenshot-1.png)](https://raw.githubusercontent.com/dniccum/nova-documentation/master/screenshots/screenshot-1.png)
 
-
+<!-- TOC -->
+  * [Compatibility Note](#compatibility-note)
+  * [Features](#features)
+  * [Installation](#installation)
+  * [Upgrading from version 2](#upgrading-from-version-2)
+    * [Add YAML configuration](#add-yaml-configuration)
+    * [Set environment variable](#set-environment-variable)
+    * [Remove dashed horizontal rules](#remove-dashed-horizontal-rules)
+  * [Using this tool](#using-this-tool)
+    * [Page YAML configuration/customization](#page-yaml-configurationcustomization)
+      * [Adding configuration to your pages](#adding-configuration-to-your-pages)
+    * [Linking](#linking)
+      * [Relative links](#relative-links)
+      * [Other types](#other-types)
+    * [Routes and adding new pages](#routes-and-adding-new-pages)
+  * [Configuration](#configuration)
+  * [License](#license)
+  * [Credits](#credits)
+<!-- TOC -->
 
 ## Compatibility Note
 
