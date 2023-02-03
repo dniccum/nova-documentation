@@ -8,6 +8,8 @@ This is a tool for Laravel's Nova administrator panel that allows you to create 
 
 [![Screenshot](https://raw.githubusercontent.com/dniccum/nova-documentation/master/screenshots/screenshot-1.png)](https://raw.githubusercontent.com/dniccum/nova-documentation/master/screenshots/screenshot-1.png)
 
+
+
 ## Compatibility Note
 
 Please note, this plugin now **only supports Laravel Nova v4**. If you are using Laravel Nova <= v3, please use version `^3.0`,
@@ -144,6 +146,10 @@ Other types of links that are supported:
 
 * Mailto (`mailto:`) links
 * External http and https links
+
+### Routes and adding new pages
+
+When a new document is added to the application architecture, and if your application leverages route caching, **be sure to clear/reset your route cache accordingly** (`php artisan route:clear`).
 
 ## Configuration
 
