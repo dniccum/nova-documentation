@@ -54,16 +54,21 @@ class DocumentationPage
         $this->content = $this->replaceLinks($content->content);
         $this->isHome = $isHome;
 
-        if ($content->path) {
-            $this->route = $content->path;
+        if ($this->isHome) {
+            $this->route = "";
         } else {
-            $this->route = "/documentation/$route";
+            if ($content->path) {
+                $this->route = $content->path;
+            } else {
+                $this->route = "/$route";
+            }
         }
         if ($content->title) {
             $this->title = $content->title;
             $this->pageTitle = $content->title;
         } else {
             $this->pageTitle = $this->getPageTitle($file);
+            $this->title = $this->pageTitle;
         }
         if ($content->order) {
             $this->order = $content->order;
