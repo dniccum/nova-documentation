@@ -68,6 +68,7 @@ class DocumentationPage
             $this->pageTitle = $content->title;
         } else {
             $this->pageTitle = $this->getPageTitle($file);
+            $this->title = $this->pageTitle;
         }
         if ($content->order) {
             $this->order = $content->order;
