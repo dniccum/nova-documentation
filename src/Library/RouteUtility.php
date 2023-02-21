@@ -16,7 +16,7 @@ class RouteUtility
         $utility = new MarkdownUtility();
         $file = \File::get($fileToParse);
         $content = $utility->parse($file);
-        $content = new DocumentationPage($file, '', $content);
+        $content = new DocumentationPage($fileToParse, '', $content);
 
         return inertia('Documentation',
             array_merge([
