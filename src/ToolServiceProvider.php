@@ -86,7 +86,7 @@ class ToolServiceProvider extends ServiceProvider
         }
 
         Route::middleware(['nova', Authorize::class])
-            ->prefix('nova/'.$this->prefix)
+            ->prefix(config('nova.path').'/'.$this->prefix)
             ->group(__DIR__.'/../routes/inertia.php');
     }
 
