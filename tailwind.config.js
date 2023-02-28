@@ -1,6 +1,9 @@
 // tailwind.config.js
 module.exports = {
     content: ["./resources/**/*.{vue,js,php}"],
+    corePlugins: {
+        preflight: false,
+    },
     theme: {
         extend: {
             colors: {
