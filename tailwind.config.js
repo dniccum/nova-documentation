@@ -1,9 +1,17 @@
 // tailwind.config.js
 module.exports = {
     content: ["./resources/**/*.{vue,js,php}"],
+    safelist: [
+        'doc-text-primary-500',
+        'hover:doc-text-primary-700',
+        'doc-text-gray-700',
+        'dark:doc-text-gray-100',
+        'dark:hover:doc-text-primary-200',
+    ],
     corePlugins: {
         preflight: false,
     },
+    darkMode: 'media',
     theme: {
         extend: {
             colors: {
@@ -48,6 +56,9 @@ module.exports = {
                         },
                         h4: {
                             fontSize: '1.1em',
+                        },
+                        h5: {
+                            fontSize: '1.03em',
                         },
                         'p, ul, ol, h1, h2, h3': {
                             marginBottom: theme('spacing.3'),
@@ -115,7 +126,7 @@ module.exports = {
                 'invert': {
                     css: {
                         'h1, h2, h3': {
-                            'color': 'rgb(var(--colors-gray-100))',
+                            color: 'rgb(var(--colors-gray-100))',
                         },
                         'h4, h5, h6, ol, ul, p, blockquote': {
                             color: 'rgb(var(--colors-gray-300))',
