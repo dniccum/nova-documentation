@@ -60,11 +60,11 @@ export default {
                 break;
         }
 
-        setTimeout(() => {
+        document.addEventListener('DOMContentLoaded', (event) => {
             document.querySelectorAll('div.documentation-content pre code').forEach((block) => {
-                highlightjs.highlightElement(block);
+                highlightjs.highlightBlock(block);
             });
-        }, 500)
+        });
     },
     computed: {
         docPageTitle() {
