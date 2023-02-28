@@ -28,7 +28,7 @@
                 if ((item.route.length > 0 && this.$page.url.endsWith(item.route)) || item.isHome && this.$page.url.endsWith('documentation')) {
                     return 'doc-text-primary-500 hover:doc-text-primary-700';
                 } else {
-                    return 'doc-text-gray-300 dark:doc-text-gray-100 hover:doc-text-primary-200';
+                    return 'doc-text-gray-700 dark:doc-text-gray-100 hover:dark:doc-text-primary-200';
                 }
             },
             parseRoute(item) {
