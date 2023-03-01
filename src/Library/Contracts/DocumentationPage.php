@@ -58,7 +58,7 @@ class DocumentationPage
             $this->route = "";
         } else {
             if ($content->path) {
-                $this->route = $content->path;
+                $this->route = "/" . $content->path;
             } else {
                 $this->route = "/$route";
             }
