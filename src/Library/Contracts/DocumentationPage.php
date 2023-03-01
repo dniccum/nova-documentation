@@ -58,11 +58,13 @@ class DocumentationPage
             $this->route = "";
         } else {
             if ($content->path) {
-                $this->route = "/" . $content->path;
+                $this->route = "/$content->path";
             } else {
                 $this->route = "/$route";
             }
         }
+        $this->route = preg_replace('/([^:])(\/{2,})/', '$1/', $this->route);
+
         if ($content->title) {
             $this->title = $content->title;
             $this->pageTitle = $content->title;
