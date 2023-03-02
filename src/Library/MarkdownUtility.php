@@ -179,7 +179,7 @@ class MarkdownUtility
         $filePath = '';
 
         for ($i = ($index + 1); $i < (count($pathParts) - 1); $i++) {
-            $filePath .= $pathParts[$i].'/';
+            $filePath .= \Str::finish($pathParts[$i], '/');
         }
 
         $fullFileName = $pathParts[count($pathParts) - 1];
