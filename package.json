@@ -16,7 +16,7 @@
         "@vue/compiler-sfc": "^3.2.22",
         "cross-env": "^5.0.0",
         "laravel-mix": "^6.0.41",
-        "laravel-mix-purgecss": "^4.2.0",
+        "laravel-mix-purgecss": "^6.0.0",
         "postcss": "^8.3.11",
         "sass": "^1.23.1",
         "sass-loader": "^12.1.0",

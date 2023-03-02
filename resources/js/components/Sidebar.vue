@@ -33,14 +33,19 @@
             },
             parseRoute(item) {
                 const { route, isHome } = item;
-                const basePath = Nova.config('base');
-                const urlPrfix = Nova.config('urlPrefix');
-                const root = `${basePath}/${urlPrfix}`;
+                const basePath = this.strFinish(Nova.config('base'), '/')
+                const urlPrefix = Nova.config('urlPrefix');
+                const root = `${basePath}${urlPrefix}`;
+
                 if (isHome) {
                     return root;
                 }
+
                 return `${root}${route}`;
-            }
+            },
+            strFinish(str, value) {
+                return str.endsWith(value) ? str : str + value;
+            },
         }
     }
 </script>
