@@ -11,7 +11,7 @@ module.exports = {
     corePlugins: {
         preflight: false,
     },
-    darkMode: 'media',
+    darkMode: ['class', 'html[class~=\'dark\']'],
     theme: {
         extend: {
             colors: {
