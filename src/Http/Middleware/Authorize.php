@@ -18,11 +18,24 @@ class Authorize
     {
         $tool = collect(Nova::registeredTools())->first([$this, 'matchesTool']);
 
-        return optional($tool)->authorize($request) ? $next($request) : abort(403);
+        return optional($tool)->authorize($request)
+            ? $next($request)
+            : $this->handleUnauthorizedRequest($request);
     }
 
     public function matchesTool($tool)
     {
         return $tool instanceof NovaDocumentation;
+    }
+
+    protected function handleUnauthorizedRequest($request)
+    {
+        $loginRoute = config('novadocumentation.login_route');
+
+        if ($loginRoute && auth()->guest()) {
+            return redirect()->guest(route($loginRoute));
+        }
+
+        abort(403);
     }
 }

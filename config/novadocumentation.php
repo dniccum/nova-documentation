@@ -55,4 +55,15 @@ return [
 
     'home' => 'documentation/home.md',
 
+    /*
+    |--------------------------------------------------------------------------
+    | Login Route
+    |--------------------------------------------------------------------------
+    |
+    | The route that the user will be redirected to if they are not authenticated.
+    | If no route is provided, a 403 error will be returned.
+    |
+    */
+
+    'login_route' => null,
 ];
