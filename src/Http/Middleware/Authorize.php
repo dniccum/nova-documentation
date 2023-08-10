@@ -3,6 +3,7 @@
 namespace Dniccum\NovaDocumentation\Http\Middleware;
 
 use Dniccum\NovaDocumentation\NovaDocumentation;
+use Laravel\Nova\Nova;
 
 class Authorize
 {
@@ -15,6 +16,26 @@ class Authorize
      */
     public function handle($request, $next)
     {
-        return resolve(NovaDocumentation::class)->authorize($request) ? $next($request) : abort(403);
+        $tool = collect(Nova::registeredTools())->first([$this, 'matchesTool']);
+
+        return optional($tool)->authorize($request)
+            ? $next($request)
+            : $this->handleUnauthorizedRequest($request);
+    }
+
+    public function matchesTool($tool)
+    {
+        return $tool instanceof NovaDocumentation;
+    }
+
+    protected function handleUnauthorizedRequest($request)
+    {
+        $loginRoute = config('novadocumentation.login_route');
+
+        if ($loginRoute && auth()->guest()) {
+            return redirect()->guest(route($loginRoute));
+        }
+
+        abort(403);
     }
 }
