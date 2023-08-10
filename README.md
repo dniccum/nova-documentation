@@ -9,6 +9,8 @@ This is a tool for Laravel's Nova administrator panel that allows you to create 
 [![Screenshot](https://raw.githubusercontent.com/dniccum/nova-documentation/master/screenshots/screenshot-1.png)](https://raw.githubusercontent.com/dniccum/nova-documentation/master/screenshots/screenshot-1.png)
 
 <!-- TOC -->
+## Table of Contents
+
   * [Compatibility Note](#compatibility-note)
   * [Features](#features)
   * [Installation](#installation)
@@ -23,6 +25,7 @@ This is a tool for Laravel's Nova administrator panel that allows you to create 
       * [Relative links](#relative-links)
       * [Other types](#other-types)
     * [Routes and adding new pages](#routes-and-adding-new-pages)
+    * [Authorization redirects](#authorization-redirects)
   * [Configuration](#configuration)
   * [License](#license)
   * [Credits](#credits)
@@ -42,6 +45,7 @@ Please note, this plugin now **only supports Laravel Nova v4**. If you are using
 * Syntax highlighting for code blocks (via [highlight.js](https://highlightjs.org/))
 * Replaces local links within the body content to work within the Nova environment.
 * Supports both browser light and dark themes.
+* Allows for customized login/authorization redirection logic if you want to customize what users see if they are not appropriately authenticated.
 
 ## Installation
 
@@ -169,6 +173,10 @@ Other types of links that are supported:
 
 When a new document is added to the application architecture, and if your application leverages route caching, **be sure to clear/reset your route cache accordingly** (`php artisan route:clear`).
 
+### Authorization redirects
+
+If desired, you can specify where an un-authenticated user is redirected if they attempt to access the module. To do so, modify the `novadocumentation.login_route` setting and set it to a valid route within your application.
+
 ## Configuration
 
 The configuration items listed below can be found in the `novadocumentation.php` configuration file.
@@ -231,6 +239,18 @@ return [
 
     'home' => 'documentation/home.md',
 
+    /*
+    |--------------------------------------------------------------------------
+    | Login Route
+    |--------------------------------------------------------------------------
+    |
+    | The route that the user will be redirected to if they are not authenticated.
+    | If no route is provided, a 403 error will be returned.
+    |
+    */
+
+    'login_route' => null,
+
 ];
 ```
 
@@ -243,3 +263,4 @@ The Nova Documentation tool is free software licensed under the MIT license.
 * [Doug Niccum](https://github.com/dniccum)
 * [Calvin Schemanski](https://github.com/calvinps)
 * [Adriaan Zonnenberg](https://github.com/adriaanzon)
+* [Rodrigo Proença](https://github.com/rproenca)
