@@ -4,7 +4,7 @@ namespace Dniccum\NovaDocumentation;
 
 use Dniccum\NovaDocumentation\Library\Contracts\DocumentationPage;
 use Dniccum\NovaDocumentation\Library\MarkdownUtility;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 use Laravel\Nova\Nova;
 use Laravel\Nova\Events\ServingNova;
 use Illuminate\Support\ServiceProvider;
@@ -86,7 +86,7 @@ class ToolServiceProvider extends ServiceProvider
         }
 
         Nova::router(['nova', Authorize::class])
-            ->prefix(\Str::finish(config('nova.path'), '/').$this->prefix)
+            ->prefix(Str::finish(config('nova.path'), '/').$this->prefix)
             ->group(__DIR__.'/../routes/inertia.php');
     }
 
