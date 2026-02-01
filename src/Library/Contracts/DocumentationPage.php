@@ -84,8 +84,14 @@ class DocumentationPage
     private function replaceLinks(string $htmlContent): string
     {
         $regex = "/<a.+href=['|\"](?!http|https|mailto|\/)([^\"\']*)['|\"].*>(.+)<\/a>/i";
-        $output = preg_replace($regex,'<a href="'.config('nova.path').'/'.$this->prefix.'/\1">\2</a>',$htmlContent);
-        $output = preg_replace("/(\.md|\.text|\.mdown|\.mkdn|\.mkd|\.mdwn|\.mdtxt|\.Rmd|\.mdtext)/i", '"', $output);
+        $novaPath = rtrim(config('nova.path', ''), '/');
+        // Ensure we have a proper path structure: /nova/documentation/ or /documentation/
+        $basePath = $novaPath ? $novaPath . '/' : '/';
+        $output = preg_replace($regex,'<a href="'.$basePath.$this->prefix.'/\1">\2</a>',$htmlContent);
+        // Remove file extensions from href attributes (before the closing quote)
+        $output = preg_replace('/(href=["\'])([^"\']*)(\.md|\.text|\.mdown|\.mkdn|\.mkd|\.mdwn|\.mdtxt|\.Rmd|\.mdtext)(["\'])/i', '$1$2$4', $output);
+        // Fix any double slashes that might have been created
+        $output = preg_replace('/([^:])\/\//', '$1/', $output);
 
         return $output;
     }
