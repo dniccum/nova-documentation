@@ -107,14 +107,29 @@ class DocumentationPage
         $title = '';
 
         foreach ($lines as $line) {
-            if (strpos($line, '# ') === 0) {
-                $title = trim(substr($line, 2));
+            $trimmedLine = trim($line);
+            // Skip blank lines and horizontal rules
+            if (empty($trimmedLine) || $trimmedLine === '---' || $trimmedLine === '***') {
+                continue;
+            }
+            if (strpos($trimmedLine, '# ') === 0) {
+                $title = trim(substr($trimmedLine, 2));
                 break;
             }
         }
 
         if (strlen($title) === 0) {
-            $title = !empty($lines[0]) ? trim($lines[0]) : 'Page Title';
+            // Fallback: find first non-empty, non-horizontal-rule line
+            foreach ($lines as $line) {
+                $trimmedLine = trim($line);
+                if (!empty($trimmedLine) && $trimmedLine !== '---' && $trimmedLine !== '***') {
+                    $title = $trimmedLine;
+                    break;
+                }
+            }
+            if (strlen($title) === 0) {
+                $title = 'Page Title';
+            }
         }
 
         return $title;
