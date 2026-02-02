@@ -72,8 +72,15 @@ class DocumentationPage
             $this->pageTitle = $this->getPageTitle($file);
             $this->title = $this->pageTitle;
         }
+        // Ensure title is never a horizontal rule or empty
+        if (empty($this->title) || $this->title === '---' || $this->title === '***') {
+            $this->title = $this->pageTitle = 'Page Title';
+        }
         if ($content->order) {
             $this->order = $content->order;
+        } else {
+            // Set a default order for files without explicit order (alphabetical by filename)
+            $this->order = 999;
         }
     }
 

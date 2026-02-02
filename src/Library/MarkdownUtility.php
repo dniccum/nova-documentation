@@ -120,7 +120,14 @@ class MarkdownUtility
             abort(500, $e);
         }
 
-        return collect($options)->sortBy('order')
+        return collect($options)
+            ->filter(function($page) {
+                // Filter out pages with invalid titles (horizontal rules)
+                return !empty($page->title) && 
+                       $page->title !== '---' && 
+                       $page->title !== '***';
+            })
+            ->sortBy('order')
             ->values()
             ->toArray();
     }
