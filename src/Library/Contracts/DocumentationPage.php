@@ -108,13 +108,13 @@ class DocumentationPage
 
         foreach ($lines as $line) {
             if (strpos($line, '# ') === 0) {
-                $title = substr($line, 2);
+                $title = trim(substr($line, 2));
+                break;
             }
-            break;
         }
 
         if (strlen($title) === 0) {
-            $title = !empty($lines[0]) ? $lines[0] : 'Page Title';
+            $title = !empty($lines[0]) ? trim($lines[0]) : 'Page Title';
         }
 
         return $title;
