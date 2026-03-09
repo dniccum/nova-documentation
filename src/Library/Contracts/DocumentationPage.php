@@ -72,8 +72,15 @@ class DocumentationPage
             $this->pageTitle = $this->getPageTitle($file);
             $this->title = $this->pageTitle;
         }
+        // Ensure title is never a horizontal rule or empty
+        if (empty($this->title) || $this->title === '---' || $this->title === '***') {
+            $this->title = $this->pageTitle = 'Page Title';
+        }
         if ($content->order) {
             $this->order = $content->order;
+        } else {
+            // Set a default order for files without explicit order (alphabetical by filename)
+            $this->order = 999;
         }
     }
 
@@ -84,8 +91,14 @@ class DocumentationPage
     private function replaceLinks(string $htmlContent): string
     {
         $regex = "/<a.+href=['|\"](?!http|https|mailto|\/)([^\"\']*)['|\"].*>(.+)<\/a>/i";
-        $output = preg_replace($regex,'<a href="'.config('nova.path').'/'.$this->prefix.'/\1">\2</a>',$htmlContent);
-        $output = preg_replace("/(\.md|\.text|\.mdown|\.mkdn|\.mkd|\.mdwn|\.mdtxt|\.Rmd|\.mdtext)/i", '"', $output);
+        $novaPath = rtrim(config('nova.path', ''), '/');
+        // Ensure we have a proper path structure: /nova/documentation/ or /documentation/
+        $basePath = $novaPath ? $novaPath . '/' : '/';
+        $output = preg_replace($regex,'<a href="'.$basePath.$this->prefix.'/\1">\2</a>',$htmlContent);
+        // Remove file extensions from href attributes (before the closing quote)
+        $output = preg_replace('/(href=["\'])([^"\']*)(\.md|\.text|\.mdown|\.mkdn|\.mkd|\.mdwn|\.mdtxt|\.Rmd|\.mdtext)(["\'])/i', '$1$2$4', $output);
+        // Fix any double slashes that might have been created
+        $output = preg_replace('/([^:])\/\//', '$1/', $output);
 
         return $output;
     }
@@ -101,14 +114,29 @@ class DocumentationPage
         $title = '';
 
         foreach ($lines as $line) {
-            if (strpos($line, '# ') === 0) {
-                $title = substr($line, 2);
+            $trimmedLine = trim($line);
+            // Skip blank lines and horizontal rules
+            if (empty($trimmedLine) || $trimmedLine === '---' || $trimmedLine === '***') {
+                continue;
             }
-            break;
+            if (strpos($trimmedLine, '# ') === 0) {
+                $title = trim(substr($trimmedLine, 2));
+                break;
+            }
         }
 
         if (strlen($title) === 0) {
-            $title = !empty($lines[0]) ? $lines[0] : 'Page Title';
+            // Fallback: find first non-empty, non-horizontal-rule line
+            foreach ($lines as $line) {
+                $trimmedLine = trim($line);
+                if (!empty($trimmedLine) && $trimmedLine !== '---' && $trimmedLine !== '***') {
+                    $title = $trimmedLine;
+                    break;
+                }
+            }
+            if (strlen($title) === 0) {
+                $title = 'Page Title';
+            }
         }
 
         return $title;
